@@ -1,0 +1,50 @@
+convex/lib/xflow.ts
+  s_54419c60084336::t_ec6d517a5f7f63 34-35
+  s_54419c60084336::t_fed8937eaa572f 1-33,36-206
+convex/billing.ts
+  s_54419c60084336::t_fd0f2c1c77dc6f 1-312
+  s_58b50da86bfdc4::t_c70a227b005bd9 313-328
+convex/xflow.ts
+  s_54419c60084336::t_99c11fcf37da8c 359-364
+  s_54419c60084336::t_1a2b0926d37c0a 15,22-30,121,215,217
+  s_54419c60084336::t_8e3e2cd105982f 1-14,16-21,31-120,122-214,216,218-358,365-367
+convex/http.ts
+  s_81ffac56f29b88::t_3adde1b4025682 1-101
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "6693df3301fc852378efd046af6627113cfe19c7",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_58b50da86bfdc4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e05d5943-7333-4fc9-8ffa-8272e4ef4292",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_81ffac56f29b88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f07a6a1d-4311-4684-908d-e348fa58e9e1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
