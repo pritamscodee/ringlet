@@ -1,0 +1,94 @@
+next.config.ts
+  s_54419c60084336::t_e7dcc74113604d 10,12-34
+  s_54419c60084336::t_be9e9ec2f312cf 2
+  s_54419c60084336::t_4fee5cd26d6b0b 1,3-9,11
+eslint.config.mjs
+  s_54419c60084336::t_65fcfbfcdccb7a 19-20
+  s_54419c60084336::t_ec6d517a5f7f63 15-18
+  s_54419c60084336::t_6a87c95e082bab 1-14,21-24
+components.json
+  s_54419c60084336::t_4958eca483c422 1-25
+.gitignore
+  s_ba87ea63dd47e5::t_7e62f6ca305951 46-50
+  s_54419c60084336::t_9e761ec4388c24 43-45
+  s_ba87ea63dd47e5::t_955fef3516c0c5 52
+  h_8dfeaef981cbe6 51
+  s_54419c60084336::t_e28dd4582d3f5f 42
+  s_ba87ea63dd47e5::t_05ff06fc95f618 1-41
+tsconfig.json
+  s_54419c60084336::t_be9e9ec2f312cf 3-33
+  s_54419c60084336::t_1cfa8666e0e151 1-2,34
+src/lib/utils.ts
+  s_54419c60084336::t_1b22ed48cb4b7f 1-6
+package.json
+  s_54419c60084336::t_0c75892dde97ef 38
+  s_54419c60084336::t_19d25123d5c151 15-16,44
+  s_54419c60084336::t_9e761ec4388c24 7-14,45,51
+  s_54419c60084336::t_4958eca483c422 27,34-37,39
+  s_fd041f23fbaedf::t_fb8bbc8ae7ab5c 6,48
+  s_54419c60084336::t_984158496a24ba 31
+  s_fd041f23fbaedf::t_10ab975b6869b3 1-5,17-26,28-30,32-33,40-43,46-47,49-50,52-65
+.env.example
+  s_54419c60084336::t_aa2c5b1ee97a7b 1-37
+  s_81ffac56f29b88::t_1c002143d2d8ae 38-43
+src/app/globals.css
+  s_54419c60084336::t_fe80f4e14e1c83 38-42,45-52,73-79,118-158,187,199-205,207-212,216-221,223-268,270-351
+  s_54419c60084336::t_b53adbeed7be04 97,99
+  s_54419c60084336::t_05e6cf6eef43cb 7-34,37,54-72,80-96,98,101-112,114-117,177-186,213-215,222,269
+  s_54419c60084336::t_6b8e831e2728ee 43-44,206
+  s_54419c60084336::t_4958eca483c422 2-6,100,113,159-160,188-198
+  s_54419c60084336::t_d64eee13ea4d84 161-176
+  s_54419c60084336::t_fd66a207f7cf62 35-36
+  s_54419c60084336::t_4a77e3c8343211 1,53
+src/app/layout.tsx
+  s_54419c60084336::t_6b04589fec5c49 3-23
+  s_54419c60084336::t_0aa7464f12a030 1-2
+  s_54419c60084336::t_755d838a83adcf 24-25
+bun.lock
+  s_fd041f23fbaedf::t_8a9f74afe5acd4 1-2046
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "f680649fe392b14d53ad22fa4a7c0bc94d4fb58a",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_81ffac56f29b88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f07a6a1d-4311-4684-908d-e348fa58e9e1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_ba87ea63dd47e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90501c4b-dfc0-4e22-9e11-24e809f2c228",
+        "model": "claude-opus-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_fd041f23fbaedf": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "2c0eeb05-305a-4837-a667-624a81f3535c",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
