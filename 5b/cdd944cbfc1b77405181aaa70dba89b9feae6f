@@ -1,0 +1,21 @@
+src/instrumentation-client.ts
+  s_54419c60084336::t_1edf6cd499938a 1-9
+src/instrumentation.ts
+  s_54419c60084336::t_06e9d01904b421 1-13
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5bcdd944cbfc1b77405181aaa70dba89b9feae6f",
+  "prompts": {},
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
