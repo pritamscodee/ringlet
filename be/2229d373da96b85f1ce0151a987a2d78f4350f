@@ -1,0 +1,29 @@
+AGENTS.md
+  s_54419c60084336::t_4981f1fdca7b64 1-23
+README.md
+  s_ba87ea63dd47e5::t_b884fcec86bb2a 1-67
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "be2229d373da96b85f1ce0151a987a2d78f4350f",
+  "prompts": {},
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_ba87ea63dd47e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90501c4b-dfc0-4e22-9e11-24e809f2c228",
+        "model": "claude-opus-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
