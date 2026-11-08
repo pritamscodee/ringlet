@@ -1,0 +1,40 @@
+src/mastra/index.ts
+  s_58b50da86bfdc4::t_0abf08b4a4d5c2 1-42,44-79
+  s_58b50da86bfdc4::t_3c3f98a9098e93 43
+src/mastra/tools.ts
+  s_58b50da86bfdc4::t_0abf08b4a4d5c2 1-157
+src/lib/shared/templates.ts
+  s_58b50da86bfdc4::t_0abf08b4a4d5c2 1-232
+src/mastra/knowledge.ts
+  h_8dfeaef981cbe6 20
+  s_54419c60084336::t_4583f75753a7a9 1-19,21-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "915abefe86395bd3199405517a7eb9869600cc60",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_58b50da86bfdc4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e05d5943-7333-4fc9-8ffa-8272e4ef4292",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
