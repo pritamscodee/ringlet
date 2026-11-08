@@ -1,0 +1,46 @@
+src/app/page.tsx
+  s_81ffac56f29b88::t_9144fb57bb0b98 1-257
+src/components/landing/live-call-demo.tsx
+  s_54419c60084336::t_fe4f6067fffa4b 1-181,185-195
+  s_54419c60084336::t_2c24eda519a2a6 182-184
+src/components/fluid-hover-highlight.tsx
+  s_54419c60084336::t_fe80f4e14e1c83 1-142
+src/lib/springs.ts
+  s_54419c60084336::t_984158496a24ba 1-31
+src/components/landing/site-nav.tsx
+  s_54419c60084336::t_d64eee13ea4d84 41
+  s_54419c60084336::t_67e38a45f008cf 1-40,42-61
+src/hooks/use-fluid-hover.ts
+  s_54419c60084336::t_fe80f4e14e1c83 1-693
+src/components/landing/ascii-wave.tsx
+  s_54419c60084336::t_9999d73a4c8c13 1-70
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "4c8dc774aab5a49d146afe6e9f9b14c0e517f9cf",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_81ffac56f29b88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f07a6a1d-4311-4684-908d-e348fa58e9e1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
