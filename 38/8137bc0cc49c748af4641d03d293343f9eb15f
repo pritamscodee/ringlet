@@ -1,0 +1,24 @@
+tests/logic.test.ts
+  s_81ffac56f29b88::t_9144fb57bb0b98 1-131
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "388137bc0cc49c748af4641d03d293343f9eb15f",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_81ffac56f29b88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f07a6a1d-4311-4684-908d-e348fa58e9e1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
