@@ -1,0 +1,19 @@
+convex/auth.config.ts
+  s_ba87ea63dd47e5::t_80616aae505eb5 1,9-10
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "9387c4fe081a382dfedfd27847df9cbd92ce2708",
+  "prompts": {},
+  "sessions": {
+    "s_ba87ea63dd47e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90501c4b-dfc0-4e22-9e11-24e809f2c228",
+        "model": "claude-opus-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
