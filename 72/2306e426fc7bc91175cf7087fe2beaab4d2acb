@@ -1,0 +1,31 @@
+README.md
+  s_ba87ea63dd47e5::t_3b8f7cb62dd368 3,5-17,30-32,34,36,38,40-41,43-48,50-51,53,55-58,60,62-65,67,69-90,96-98
+docs/setup.md
+  s_ba87ea63dd47e5::t_645557276edf7c 1-50
+convex/adminResetPassword.ts
+  s_007922f2b5ce50::t_0697f932b5bd67 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "722306e426fc7bc91175cf7087fe2beaab4d2acb",
+  "prompts": {},
+  "sessions": {
+    "s_007922f2b5ce50": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d7fddb84-f95f-49f5-835a-da58c6d49671",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_ba87ea63dd47e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90501c4b-dfc0-4e22-9e11-24e809f2c228",
+        "model": "claude-opus-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
