@@ -1,0 +1,37 @@
+src/app/page.tsx
+  s_ba87ea63dd47e5::t_a6102c7c06e06b 1-230
+src/components/fluid-hover-highlight.tsx
+  s_54419c60084336::t_87f599a830eab7 1-142
+src/components/landing/live-call-demo.tsx
+  s_54419c60084336::t_e8d85acacd23f7 1-195
+src/components/landing/site-nav.tsx
+  s_54419c60084336::t_cdc5036582d979 1-61
+src/hooks/use-fluid-hover.ts
+  s_54419c60084336::t_d34fa685ea1586 1-693
+src/lib/springs.ts
+  s_54419c60084336::t_fe23e4a40fc10b 1-31
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b0db8351583e00935cefe43dd5c7f48ecccf44ba",
+  "prompts": {},
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_ba87ea63dd47e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90501c4b-dfc0-4e22-9e11-24e809f2c228",
+        "model": "claude-opus-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
