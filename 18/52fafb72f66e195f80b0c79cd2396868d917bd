@@ -1,0 +1,65 @@
+scripts/copy-vad-assets.mjs
+  s_54419c60084336::t_e28dd4582d3f5f 1-15
+src/app/api/voice/session/route.ts
+  s_81ffac56f29b88::t_dd3bf78709296d 1-72
+src/app/api/voice/tts/route.ts
+  s_54419c60084336::t_5edc69a3028da9 1-46
+src/lib/server/ticket.ts
+  s_54419c60084336::t_abd3a5a7d88b80 1-40
+src/lib/voice/player.ts
+  s_54419c60084336::t_7d20904277a753 97
+  s_54419c60084336::t_b00678aafb9d12 1-96,98-112
+src/app/api/voice/respond/route.ts
+  s_54419c60084336::t_067af4adf5f35c 1-57,70-180
+  s_54419c60084336::t_0fbe31b8ed667c 58-69
+src/app/api/voice/end/route.ts
+  s_58b50da86bfdc4::t_b99d061929d21d 65-72,87-98,104-124,127-130
+  s_54419c60084336::t_55aa821851a22b 1-52,55-64,73-86,99-103,125-126,131-145
+  s_58b50da86bfdc4::t_1d9a9873577f61 53-54
+src/lib/server/deepgram.ts
+  s_54419c60084336::t_16c92ff7499f42 1-44
+src/app/api/voice/token/route.ts
+  s_54419c60084336::t_27819869ad66ea 9
+  s_54419c60084336::t_ee44b81a99de66 1-8,10
+src/lib/voice/engine.ts
+  s_54419c60084336::t_702e76d7011c81 1-19,21-144,146-206,208-213,216-605
+  s_54419c60084336::t_27819869ad66ea 20,145,214-215
+  s_54419c60084336::t_71ea33d75a6876 207
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "1852fafb72f66e195f80b0c79cd2396868d917bd",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_58b50da86bfdc4": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "e05d5943-7333-4fc9-8ffa-8272e4ef4292",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_81ffac56f29b88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f07a6a1d-4311-4684-908d-e348fa58e9e1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
