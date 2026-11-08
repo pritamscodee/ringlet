@@ -44,6 +44,12 @@ type Turn = {
 export type VoiceSessionOptions = {
   agentId: string;
   recordingConsent: boolean;
+  /**
+   * Route that opens the call. Defaults to the signed-in one; the public
+   * demo points this at its own rate-limited endpoint, which answers with
+   * the same shape.
+   */
+  sessionPath?: string;
   onState: (s: CallState) => void;
   onTranscript: (entries: TranscriptEntry[]) => void;
   onError: (message: string) => void;
@@ -108,7 +114,7 @@ export class VoiceSession {
 
   async start() {
     try {
-      const res = await fetch("/api/voice/session", {
+      const res = await fetch(this.opts.sessionPath ?? "/api/voice/session", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

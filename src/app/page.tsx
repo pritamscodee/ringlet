@@ -14,7 +14,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { AsciiWave } from "@/components/landing/ascii-wave";
-import { LiveCallDemo } from "@/components/landing/live-call-demo";
+import { CallDemo } from "@/components/landing/call-demo";
 import { SiteNav } from "@/components/landing/site-nav";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -91,7 +91,7 @@ export default function Home() {
               {TRIAL_SECONDS / 60} free minutes · no card required
             </p>
           </div>
-          <LiveCallDemo />
+          <CallDemo />
         </section>
 
         <section id="use-cases" className="border-t bg-card">
