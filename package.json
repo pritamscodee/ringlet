@@ -9,7 +9,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "typecheck": "tsc --noEmit && tsc --noEmit -p convex",
+    "typecheck": "next typegen && tsc --noEmit && tsc --noEmit -p convex",
     "postinstall": "node scripts/copy-vad-assets.mjs",
     "deploy:convex": "convex deploy",
     "deploy": "sst deploy --stage production",
