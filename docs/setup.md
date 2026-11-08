@@ -20,6 +20,32 @@ NEXT_PUBLIC_SENTRY_DSN=...   # optional
 
 Then run `bun run dev` and open http://localhost:3000.
 
+## Production
+
+`bunx convex deploy` pushes code and schema to the production deployment. It
+does **not** copy data or environment variables from dev: a fresh production
+deployment starts empty and unconfigured.
+
+Point the production build at it with a `.env.production.local` (gitignored),
+which Next.js loads for `next build` and `next start` only, so `bun run dev`
+keeps using the dev deployment from `.env.local`:
+
+```
+NEXT_PUBLIC_CONVEX_URL=https://<deployment>.convex.cloud
+NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site
+```
+
+Then set the deployment's own environment. Auth keys should be generated
+fresh for production rather than copied from dev:
+
+```bash
+bunx @convex-dev/auth --prod
+bunx convex env set SITE_URL https://<your-frontend-origin> --prod
+```
+
+`SITE_URL` must match the deployed frontend's origin or sign-in fails, so it
+can only be set once the frontend has a URL.
+
 ## Billing (Razorpay)
 
 Customers subscribe monthly in INR through Razorpay Subscriptions (UPI Autopay, cards, netbanking e-mandate). Plans live in `src/lib/shared/plans.ts` (`INR_PLANS`); prices include GST.
