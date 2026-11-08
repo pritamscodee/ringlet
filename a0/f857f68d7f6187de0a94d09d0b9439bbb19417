@@ -1,0 +1,41 @@
+convex/auth.config.ts
+  s_54419c60084336::t_86ee5029674dab 1-8
+convex/lib/access.ts
+  s_54419c60084336::t_5cc826a794bb8f 1-50
+src/lib/server/convex.ts
+  s_54419c60084336::t_6ea234c06db33b 1-28,34-37,39
+  s_54419c60084336::t_1a2b0926d37c0a 29-33,38
+src/app/signin/page.tsx
+  s_54419c60084336::t_801bdb9c7a71eb 1-5,12-31,34-42,84-87
+  s_54419c60084336::t_272b104b0492d7 6-11,32-33,43-83
+src/proxy.ts
+  s_54419c60084336::t_5d5a687fece0a6 1-21
+convex/workspaces.ts
+  s_54419c60084336::t_cd8a9a7cc3a1af 1-130
+src/components/providers.tsx
+  s_54419c60084336::t_579c98f2338167 1-6,8-28,34-35
+  s_54419c60084336::t_50fd016dc24e1f 7,29-33
+convex/auth.ts
+  s_54419c60084336::t_b98ca4e254e5b0 1-6
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "a0f857f68d7f6187de0a94d09d0b9439bbb19417",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
