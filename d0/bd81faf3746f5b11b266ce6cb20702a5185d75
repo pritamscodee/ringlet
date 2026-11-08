@@ -1,0 +1,19 @@
+docs/setup.md
+  s_007922f2b5ce50::t_d5d1ced6eb9de6 23-48
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d0bd81faf3746f5b11b266ce6cb20702a5185d75",
+  "prompts": {},
+  "sessions": {
+    "s_007922f2b5ce50": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "d7fddb84-f95f-49f5-835a-da58c6d49671",
+        "model": "claude-opus-4-8"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
