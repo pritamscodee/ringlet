@@ -1,0 +1,21 @@
+src/components/providers.tsx
+  s_54419c60084336::t_c083d6d6fe2bf4 1-35
+src/lib/server/convex.ts
+  s_54419c60084336::t_d1ee238cbcfd0d 1-39
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "d4636c8856753515654c471c8b1293d516314399",
+  "prompts": {},
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
