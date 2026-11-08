@@ -1,0 +1,70 @@
+src/components/ui/checkbox.tsx
+  s_54419c60084336::t_89768289e091b9 1-3,5-32
+  s_54419c60084336::t_1927413f915db9 4
+src/components/ui/input.tsx
+  s_54419c60084336::t_89768289e091b9 1,3-9,11-18
+  s_54419c60084336::t_cee361d3a15388 10
+  s_54419c60084336::t_1927413f915db9 2
+src/components/ui/alert-dialog.tsx
+  s_54419c60084336::t_1927413f915db9 4
+  s_54419c60084336::t_89768289e091b9 1-3,5-199
+src/components/ui/textarea.tsx
+  s_54419c60084336::t_1927413f915db9 2
+  s_54419c60084336::t_89768289e091b9 1,3-17
+src/components/ui/separator.tsx
+  s_54419c60084336::t_1927413f915db9 4
+  s_54419c60084336::t_89768289e091b9 1-3,5-27
+src/components/ui/native-select.tsx
+  s_54419c60084336::t_1927413f915db9 2
+  s_54419c60084336::t_cee361d3a15388 26
+  s_54419c60084336::t_89768289e091b9 1,3-25,27-60
+src/components/ui/badge.tsx
+  s_54419c60084336::t_1927413f915db9 3
+  s_54419c60084336::t_89768289e091b9 1-2,4-48
+src/components/ui/label.tsx
+  s_54419c60084336::t_89768289e091b9 1-3,5-23
+  s_54419c60084336::t_1927413f915db9 4
+src/components/ui/card.tsx
+  s_54419c60084336::t_1927413f915db9 2
+  s_54419c60084336::t_89768289e091b9 1,3-13,15-102
+  s_54419c60084336::t_cee361d3a15388 14
+src/components/ui/button.tsx
+  s_54419c60084336::t_cee361d3a15388 24,28
+  s_54419c60084336::t_4958eca483c422 1-2,4-6,8-10,12-23,25-26,29-66
+  s_54419c60084336::t_1927413f915db9 3
+  s_54419c60084336::t_50fd016dc24e1f 27
+  s_54419c60084336::t_a02b83b3183b10 7,11
+src/components/ui/tabs.tsx
+  s_54419c60084336::t_89768289e091b9 1-4,6-89
+  s_54419c60084336::t_1927413f915db9 5
+src/components/ui/table.tsx
+  s_54419c60084336::t_89768289e091b9 1-3,5-115
+  s_54419c60084336::t_1927413f915db9 4
+src/components/ui/skeleton.tsx
+  s_54419c60084336::t_89768289e091b9 2-13
+  s_54419c60084336::t_397e07ef483c0f 1
+src/components/ui/alert.tsx
+  s_54419c60084336::t_1927413f915db9 3
+  s_54419c60084336::t_89768289e091b9 1-2,4-75
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "5466183f329d235cc18e31be8e4ee509b79ada28",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
