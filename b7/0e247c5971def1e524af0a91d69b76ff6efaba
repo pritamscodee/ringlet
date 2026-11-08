@@ -1,0 +1,43 @@
+convex/_generated/ai/ai-files.state.json
+  s_54419c60084336::t_5bad627d3c1883 1-6
+convex/_generated/api.d.ts
+  s_ba87ea63dd47e5::t_e700b25a519350 1-73
+convex/_generated/api.js
+  s_54419c60084336::t_36b68c528ad509 1-23
+convex/_generated/dataModel.d.ts
+  s_54419c60084336::t_c84b709f73fea3 1-60
+convex/_generated/server.d.ts
+  s_54419c60084336::t_53ee7e2be41902 1-162
+convex/_generated/server.js
+  s_54419c60084336::t_75ccea57ec77df 1-101
+convex/_init.ts
+  s_54419c60084336::t_511874ee2917c0 1
+convex/schema.ts
+  s_ba87ea63dd47e5::t_6a3ca81e264db7 1-179
+convex/tsconfig.json
+  s_54419c60084336::t_5d94c66a68845b 1-25
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "b70e247c5971def1e524af0a91d69b76ff6efaba",
+  "prompts": {},
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_ba87ea63dd47e5": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "90501c4b-dfc0-4e22-9e11-24e809f2c228",
+        "model": "claude-opus-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
