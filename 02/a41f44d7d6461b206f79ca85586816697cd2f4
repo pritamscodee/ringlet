@@ -1,0 +1,53 @@
+convex/_generated/api.d.ts
+  s_81ffac56f29b88::t_8347e4df0e4a62 20,22-23,43,45-46
+  s_54419c60084336::t_6bcf82961c4c44 12-19,21,24-25,35-42,44,47-48
+  s_54419c60084336::t_4aa57f994b8cc7 1-11,26-34,49-77
+convex/_generated/dataModel.d.ts
+  s_54419c60084336::t_4aa57f994b8cc7 1-10,17,19-22,24-26,29,34-44,47,49-59
+  s_54419c60084336::t_6bcf82961c4c44 11-16,18,23,27-28,30-33,45-46,48,60
+convex/schema.ts
+  s_81ffac56f29b88::t_2f745ee44e44c9 1-224
+convex/tsconfig.json
+  s_54419c60084336::t_4aa57f994b8cc7 1-25
+convex/_generated/server.js
+  s_54419c60084336::t_4aa57f994b8cc7 1-101
+convex/_generated/ai/ai-files.state.json
+  s_54419c60084336::t_21555361c87be7 1-6
+convex/_init.ts
+  s_54419c60084336::t_4aa57f994b8cc7 1
+convex/_generated/api.js
+  s_54419c60084336::t_4aa57f994b8cc7 1-23
+convex/_generated/server.d.ts
+  s_54419c60084336::t_4aa57f994b8cc7 1-162
+convex/_generated/ai/guidelines.md
+  s_54419c60084336::t_96baa8caa27b0d 1-286
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "02a41f44d7d6461b206f79ca85586816697cd2f4",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_54419c60084336": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "7d15d603-e085-49f4-a222-431c74ef8968",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_81ffac56f29b88": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "f07a6a1d-4311-4684-908d-e348fa58e9e1",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
