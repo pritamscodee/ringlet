@@ -1,0 +1,24 @@
+src/lib/voice/engine.ts
+  s_b41568da1a05d3::t_caaaad51dddd13 60,348,386,458-459,465,467-471,538
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e2af55205abed494cd8311d44994a731cd7aac88",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b41568da1a05d3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "efd9789f-4856-4d79-a917-a30097d1b67e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
