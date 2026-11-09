@@ -1,0 +1,142 @@
+package.json
+  s_2230ff4bdf0230::t_70494867c15ff4 6-7,10-17,20-21,24-26,30,51,54,66-67
+prisma/migrations/20261109000000_init/migration.sql
+  s_2230ff4bdf0230::t_440afa041a18b4 1-252
+src/server/services/conversations.ts
+  s_2230ff4bdf0230::t_a39cf39e58e820 1-365
+src/app/api/voice/session/route.ts
+  s_2230ff4bdf0230::t_4ecd1a42ca519a 5-7,10,16-17,21,23,25-26,31,54-55,63-64
+src/app/api/voice/respond/route.ts
+  s_b41568da1a05d3::t_a0ec9dc6977c50 6-8,36-37,39,45,49-50,54-55,72,89,95-103,120-121,142-143,164-165
+src/app/(app)/settings/page.tsx
+  s_2230ff4bdf0230::t_3e48c0ebc35354 3-4,21,23-26,59,64,73,105
+src/app/signin/page.tsx
+  s_2230ff4bdf0230::t_6f83d4584c6a4b 11,24-31,37,39
+src/app/(app)/layout.tsx
+  s_2230ff4bdf0230::t_79cb00edad60f3 3,6,24,32,70,81,110,116-121
+  s_2230ff4bdf0230::t_188c8a89477f8a 80,84
+src/components/call-panel.tsx
+  s_2230ff4bdf0230::t_3b2e59893280b6 7-8,25,59,69-74
+scripts/grant-minutes.ts
+  s_2230ff4bdf0230::t_70494867c15ff4 1-46
+eslint.config.mjs
+  s_2230ff4bdf0230::t_7ab18167d3285f 15
+src/server/services/analytics.ts
+  s_2230ff4bdf0230::t_6f171b954cb67d 1-115
+sst.config.ts
+  s_2230ff4bdf0230::t_7ab18167d3285f 4-6,8-10,27-29,35-44,46-47,49-52
+src/components/workspace.tsx
+  s_2230ff4bdf0230::t_79cb00edad60f3 7,23,35
+  s_2230ff4bdf0230::t_bb113224353689 6,30-34
+  s_2230ff4bdf0230::t_aa7b4695e126b1 8,11-13,15,39,43
+src/server/schemas.ts
+  s_2230ff4bdf0230::t_43b71be818a9f3 1-64
+src/mastra/tools.ts
+  s_2230ff4bdf0230::t_b79b3a78cbbda6 4-6,10-13,19-21,118
+src/app/(app)/agents/new/page.tsx
+  s_2230ff4bdf0230::t_188c8a89477f8a 3,18
+src/app/(app)/usage/page.tsx
+  s_2230ff4bdf0230::t_3e48c0ebc35354 6,10,12,16,18-22
+src/app/onboarding/page.tsx
+  s_2230ff4bdf0230::t_3e48c0ebc35354 3,17,32
+src/lib/auth-client.ts
+  s_2230ff4bdf0230::t_f3ad3fb50ebe03 1-3
+src/server/auth.ts
+  s_2230ff4bdf0230::t_f3ad3fb50ebe03 1-19
+src/server/errors.ts
+  s_2230ff4bdf0230::t_f3ad3fb50ebe03 1-22
+src/lib/shared/limits.ts
+  s_2230ff4bdf0230::t_d01aa7626c765d 1-14
+src/lib/rpc.ts
+  s_2230ff4bdf0230::t_c0152837a1c2f0 1-60,62-64
+  s_2230ff4bdf0230::t_1d552e0ff2f825 61
+.github/workflows/ci.yml
+  s_2230ff4bdf0230::t_7ab18167d3285f 20
+src/proxy.ts
+  s_2230ff4bdf0230::t_63ec6d0487b3d6 1-2,4,6-14,16-20,24
+src/app/page.tsx
+  s_2230ff4bdf0230::t_4423df137c42f6 20
+src/app/(app)/captures/page.tsx
+  s_2230ff4bdf0230::t_188c8a89477f8a 3,24,29,36,76,80
+src/app/api/voice/end/route.ts
+  s_2230ff4bdf0230::t_92dc241d0af937 4-7,10,13,18-19,22,25,45,100,117,126
+src/app/(app)/dashboard/page.tsx
+  s_2230ff4bdf0230::t_188c8a89477f8a 3,31,150-151
+src/server/db.ts
+  s_2230ff4bdf0230::t_f3ad3fb50ebe03 1-14
+prisma/schema.prisma
+  s_2230ff4bdf0230::t_ca6b6d262e7e2d 1-246
+src/server/rpc.ts
+  s_2230ff4bdf0230::t_c0152837a1c2f0 1-59
+src/components/app-ui.tsx
+  s_2230ff4bdf0230::t_fb9373c1eb644d 159
+src/components/agent-form.tsx
+  s_2230ff4bdf0230::t_e9039843fc7192 15-16,27,47-49
+src/app/api/rpc/[method]/route.ts
+  s_2230ff4bdf0230::t_c0152837a1c2f0 1-26
+prisma/migrations/migration_lock.toml
+  s_2230ff4bdf0230::t_440afa041a18b4 1-3
+src/server/services/workspaces.ts
+  s_2230ff4bdf0230::t_422bb395beeb2e 1-102
+src/server/access.ts
+  s_2230ff4bdf0230::t_395b3b278cb65d 1-34
+.gitignore
+  s_2230ff4bdf0230::t_129320ee409071 53-55
+src/mastra/index.ts
+  s_2230ff4bdf0230::t_b79b3a78cbbda6 3,19,53,57-58,61
+src/app/layout.tsx
+  s_2230ff4bdf0230::t_6f83d4584c6a4b 16-20
+src/server/recordings.ts
+  s_2230ff4bdf0230::t_c392ff1419cb1c 1-37
+src/app/(app)/agents/page.tsx
+  s_2230ff4bdf0230::t_188c8a89477f8a 3,16,42,45,56
+src/server/services/agents.ts
+  s_2230ff4bdf0230::t_b19172bfd62901 1-119
+src/app/(app)/agents/[id]/page.tsx
+  s_2230ff4bdf0230::t_aa7b4695e126b1 30
+  s_2230ff4bdf0230::t_188c8a89477f8a 3-4,36-37,39,45-46,111-112
+src/app/(app)/conversations/[id]/page.tsx
+  s_2230ff4bdf0230::t_188c8a89477f8a 3,16,63,68,130
+src/components/providers.tsx
+  s_2230ff4bdf0230::t_aa7b4695e126b1 8-18,20-21,25
+.env.example
+  s_2230ff4bdf0230::t_7ab18167d3285f 5-13,26-30
+  s_2230ff4bdf0230::t_f101683813db0c 4
+prisma.config.ts
+  s_2230ff4bdf0230::t_33698d7a9713a5 1-14
+src/app/(app)/conversations/page.tsx
+  s_2230ff4bdf0230::t_aa7b4695e126b1 3,20,22,24,36,63,65,69
+src/app/api/auth/[...all]/route.ts
+  s_2230ff4bdf0230::t_f3ad3fb50ebe03 1-4
+bun.lock
+  s_2230ff4bdf0230::t_9e0a304833c9ee 8-9,12-14,18,39,42,52-53,75,79-80,99-100,103-104,173,175,177,179,181,183,185,187,189,191,193,195,197,199,201,203,205,325-326,347-350,405-432,727-747,753-754,759-760,837-854,903-904,917-922,935-936,949,955-956,959-960,985,987,997-1018,1039-1040,1051-1054,1057-1058,1071,1075-1076,1079-1080,1083-1084,1153-1154,1157-1160,1169-1170,1183-1184,1195-1196,1211-1212,1225-1226,1235-1236,1249-1252,1279-1280,1289-1290,1343-1344,1413-1414,1447-1448,1461,1575-1578,1581-1582,1615-1616,1663-1665,1671-1672,1683,1685,1687,1689,1695-1696,1701-1702,1707-1708,1715-1716,1731-1732,1745-1746,1759-1762,1765-1766,1769-1770,1783-1786,1795-1796,1831-1832,1855-1856,1887,1967-1968,2005-2006,2023,2027-2028,2039-2040,2047-2058,2061-2062,2091-2094,2097-2100,2127-2128,2143-2146,2151-2152,2183-2190,2209-2214,2225-2226
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "e3b816f0b285d2d6ac02f026da3659865148f4e7",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_2230ff4bdf0230": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "be8fc6a7-5c7d-44d8-b0c3-6d803ada4118",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    },
+    "s_b41568da1a05d3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "efd9789f-4856-4d79-a917-a30097d1b67e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
