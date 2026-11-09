@@ -1,13 +1,11 @@
 "use client";
 
-import { convexQuery, useConvexMutation } from "@convex-dev/react-query";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { rpcQuery, useRpcMutation } from "@/lib/rpc";
+import { useQuery } from "@tanstack/react-query";
 import { Trash2 } from "lucide-react";
 import Link from "next/link";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
-import { api } from "../../../../../convex/_generated/api";
-import type { Id } from "../../../../../convex/_generated/dataModel";
 import { AgentForm, draftFromAgent } from "@/components/agent-form";
 import { ErrorNote, errorText, formatDuration, Loading, PageHeader, StatusBadge, timeAgo } from "@/components/app-ui";
 import { CallPanel } from "@/components/call-panel";
@@ -29,26 +27,23 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useWorkspace } from "@/components/workspace";
 
 export default function AgentPage() {
-  const { id } = useParams<{ id: string }>();
-  const agentId = id as Id<"agents">;
+  const { id: agentId } = useParams<{ id: string }>();
   const search = useSearchParams();
   const router = useRouter();
   const { workspaceId, canManage } = useWorkspace();
   const [saved, setSaved] = useState(false);
 
-  const { data: agent, error } = useQuery(convexQuery(api.agents.get, { agentId }));
-  const { data: calls } = useQuery(convexQuery(api.conversations.list, { workspaceId, agentId, limit: 10 }));
+  const { data: agent, error } = useQuery(rpcQuery("agents.get", { agentId }));
+  const { data: calls } = useQuery(rpcQuery("conversations.list", { workspaceId, agentId, limit: 10 }));
 
-  const update = useMutation({
-    mutationFn: useConvexMutation(api.agents.update),
+  const update = useRpcMutation("agents.update", {
     onSuccess: () => {
       setSaved(true);
       setTimeout(() => setSaved(false), 2500);
     },
   });
-  const setStatus = useMutation({ mutationFn: useConvexMutation(api.agents.setStatus) });
-  const remove = useMutation({
-    mutationFn: useConvexMutation(api.agents.remove),
+  const setStatus = useRpcMutation("agents.setStatus");
+  const remove = useRpcMutation("agents.remove", {
     onSuccess: () => router.push("/agents"),
   });
 
@@ -113,8 +108,8 @@ export default function AgentPage() {
               <CardContent>
                 <ul className="divide-y text-sm">
                   {calls?.map((c) => (
-                    <li key={c._id}>
-                      <Link href={`/conversations/${c._id}`} className="flex items-center justify-between py-2 hover:text-primary">
+                    <li key={c.id}>
+                      <Link href={`/conversations/${c.id}`} className="flex items-center justify-between py-2 hover:text-primary">
                         <span>{timeAgo(c.startedAt)}</span>
                         <span className="flex items-center gap-2 text-xs text-muted-foreground">
                           <span className="font-mono">{formatDuration(c.durationSec)}</span> <StatusBadge status={c.status} />

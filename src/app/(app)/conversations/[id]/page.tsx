@@ -1,12 +1,10 @@
 "use client";
 
-import { convexQuery } from "@convex-dev/react-query";
+import { rpcQuery } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 import { ArrowLeft, Wrench } from "lucide-react";
 import Link from "next/link";
 import { useParams } from "next/navigation";
-import { api } from "../../../../../convex/_generated/api";
-import type { Id } from "../../../../../convex/_generated/dataModel";
 import { ErrorNote, errorText, formatDuration, Loading, ms, PageHeader, Row, StatusBadge } from "@/components/app-ui";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -15,7 +13,7 @@ import { cn } from "@/lib/utils";
 
 export default function ConversationPage() {
   const { id } = useParams<{ id: string }>();
-  const { data, error } = useQuery(convexQuery(api.conversations.get, { conversationId: id as Id<"conversations"> }));
+  const { data, error } = useQuery(rpcQuery("conversations.get", { conversationId: id }));
 
   if (error) return <ErrorNote message={errorText(error)} />;
   if (!data) return <Loading />;
@@ -62,12 +60,12 @@ export default function ConversationPage() {
               <ol className="space-y-3">
                 {messages.map((m) =>
                   m.role === "tool" ? (
-                    <li key={m._id} className="flex items-start gap-2 rounded-md bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
+                    <li key={m.id} className="flex items-start gap-2 rounded-md bg-muted px-3 py-2 font-mono text-xs text-muted-foreground">
                       <Wrench className="mt-0.5 size-3.5 shrink-0" />
                       <span><span className="font-medium text-foreground">{m.toolName}</span> {m.text}</span>
                     </li>
                   ) : (
-                    <li key={m._id} className="flex gap-3 text-sm">
+                    <li key={m.id} className="flex gap-3 text-sm">
                       <span className="w-12 shrink-0 pt-0.5 text-right font-mono text-xs text-muted-foreground">
                         {formatDuration(Math.max(0, Math.round((m.at - c.startedAt) / 1000)))}
                       </span>
@@ -129,7 +127,7 @@ export default function ConversationPage() {
               <CardContent>
                 <ul className="space-y-3">
                   {captures.map((cap) => (
-                    <li key={cap._id} className="space-y-1">
+                    <li key={cap.id} className="space-y-1">
                       <Badge variant="outline" className="capitalize">{cap.kind}</Badge>
                       <dl className="space-y-0.5 text-xs">
                         {Object.entries(cap.data).map(([k, v]) => (

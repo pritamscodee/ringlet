@@ -1,11 +1,10 @@
 "use client";
 
-import { convexQuery } from "@convex-dev/react-query";
+import { rpcQuery } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 import { Activity, Bot, Clock, PhoneCall, Plus, Timer, Zap } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { api } from "../../../../convex/_generated/api";
 import {
   Empty,
   formatDuration,
@@ -29,7 +28,7 @@ import { useWorkspace } from "@/components/workspace";
 export default function DashboardPage() {
   const { workspaceId } = useWorkspace();
   const [days, setDays] = useState(30);
-  const { data } = useQuery(convexQuery(api.analytics.overview, { workspaceId, days }));
+  const { data } = useQuery(rpcQuery("analytics.overview", { workspaceId, days }));
 
   return (
     <>
@@ -148,8 +147,8 @@ export default function DashboardPage() {
               <CardContent>
                 <ul className="divide-y">
                   {data.recent.map((c) => (
-                    <li key={c._id}>
-                      <Link href={`/conversations/${c._id}`} className="flex items-center justify-between gap-4 py-2.5 text-sm hover:text-primary">
+                    <li key={c.id}>
+                      <Link href={`/conversations/${c.id}`} className="flex items-center justify-between gap-4 py-2.5 text-sm hover:text-primary">
                         <span className="truncate">
                           {c.agentName}
                           {c.outcome && <span className="text-muted-foreground"> · {c.outcome.replace(/_/g, " ")}</span>}

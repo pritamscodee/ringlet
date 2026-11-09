@@ -1,12 +1,10 @@
 "use client";
 
-import { convexQuery } from "@convex-dev/react-query";
+import { rpcQuery } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 import { MessagesSquare } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { api } from "../../../../convex/_generated/api";
-import type { Id } from "../../../../convex/_generated/dataModel";
 import { Empty, formatDuration, PageHeader, StatusBadge, timeAgo } from "@/components/app-ui";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
@@ -19,11 +17,11 @@ export default function ConversationsPage() {
   const { workspaceId } = useWorkspace();
   const [agentId, setAgentId] = useState("");
   const [status, setStatus] = useState("");
-  const { data: agents } = useQuery(convexQuery(api.agents.list, { workspaceId }));
+  const { data: agents } = useQuery(rpcQuery("agents.list", { workspaceId }));
   const { data: calls } = useQuery(
-    convexQuery(api.conversations.list, {
+    rpcQuery("conversations.list", {
       workspaceId,
-      agentId: (agentId || undefined) as Id<"agents"> | undefined,
+      agentId: agentId || undefined,
       limit: 200,
     }),
   );
@@ -35,7 +33,7 @@ export default function ConversationsPage() {
       <div className="mb-4 flex flex-wrap gap-2">
         <NativeSelect value={agentId} onChange={(e) => setAgentId(e.target.value)} aria-label="Filter by agent">
           <NativeSelectOption value="">All agents</NativeSelectOption>
-          {agents?.map((a) => <NativeSelectOption key={a._id} value={a._id}>{a.name}</NativeSelectOption>)}
+          {agents?.map((a) => <NativeSelectOption key={a.id} value={a.id}>{a.name}</NativeSelectOption>)}
         </NativeSelect>
         <NativeSelect value={status} onChange={(e) => setStatus(e.target.value)} aria-label="Filter by status">
           <NativeSelectOption value="">Any status</NativeSelectOption>
@@ -62,13 +60,13 @@ export default function ConversationsPage() {
             </TableHeader>
             <TableBody>
               {rows.map((c) => (
-                <TableRow key={c._id}>
+                <TableRow key={c.id}>
                   <TableCell className="pl-4">
-                    <Link href={`/conversations/${c._id}`} className="hover:underline">{timeAgo(c.startedAt)}</Link>
+                    <Link href={`/conversations/${c.id}`} className="hover:underline">{timeAgo(c.startedAt)}</Link>
                   </TableCell>
                   <TableCell>{c.agentName}</TableCell>
                   <TableCell className="max-w-md">
-                    <Link href={`/conversations/${c._id}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
+                    <Link href={`/conversations/${c.id}`} className="flex items-center gap-2 text-muted-foreground hover:text-foreground">
                       {c.outcome && <Badge variant="outline" className="shrink-0">{c.outcome.replace(/_/g, " ")}</Badge>}
                       <span className="truncate">
                         {c.summary ?? (c.status === "active" ? "In progress…" : c.failureReason ?? "—")}

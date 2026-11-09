@@ -156,12 +156,7 @@ export function ms(v?: number | null) {
 }
 
 export function errorText(e: unknown) {
-  if (e && typeof e === "object" && "data" in e && typeof (e as { data: unknown }).data === "string") {
-    return (e as { data: string }).data;
-  }
-  return e instanceof Error
-    ? e.message.replace(/^\[CONVEX[^\]]*\]\s*/, "").replace(/Uncaught ConvexError:\s*/, "").split("\n")[0]
-    : "Something went wrong";
+  return e instanceof Error ? e.message.split("\n")[0] : "Something went wrong";
 }
 
 /** A label/value row used in detail cards. */

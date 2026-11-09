@@ -1,7 +1,6 @@
 import {
   BookOpen,
   CalendarCheck,
-  Check,
   FileAudio,
   Gauge,
   Headphones,
@@ -18,7 +17,7 @@ import { CallDemo } from "@/components/landing/call-demo";
 import { SiteNav } from "@/components/landing/site-nav";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
-import { INR_PLANS, TRIAL_SECONDS } from "@/lib/shared/plans";
+import { TRIAL_SECONDS } from "@/lib/shared/limits";
 
 const USE_CASES = [
   {
@@ -160,48 +159,6 @@ export default function Home() {
                   <p className="mt-1 text-sm leading-5 text-muted-foreground">{body}</p>
                 </div>
               ))}
-            </div>
-          </div>
-        </section>
-
-        <section id="pricing" className="border-t">
-          <div className="mx-auto max-w-[1200px] px-6 py-24">
-            <h2 className="text-[40px] leading-[44px] font-medium tracking-[-0.4px]">Monthly plans. No seats.</h2>
-            <p className="mt-4 max-w-[560px] text-base leading-6 text-muted-foreground">
-              UPI Autopay, cards or netbanking through Razorpay. Prices include GST. Unused minutes roll over, and you can
-              cancel any time.
-            </p>
-            <div className="mt-12 grid gap-4 md:grid-cols-3">
-              {INR_PLANS.map((p) => {
-                const featured = p.id === "in_growth";
-                return (
-                  <div
-                    key={p.id}
-                    className={
-                      featured
-                        ? "reveal-scroll flex flex-col rounded-xl border border-primary/40 bg-card p-6 shadow-surface"
-                        : "reveal-scroll flex flex-col rounded-xl border border-transparent bg-card p-6 shadow-surface"
-                    }
-                  >
-                    <div className="flex items-center justify-between">
-                      <h3 className="text-xl leading-7 font-medium">{p.name}</h3>
-                      {featured && <span className="rounded-full bg-accent px-2 py-0.5 text-xs text-primary">Most Popular</span>}
-                    </div>
-                    <div className="mt-4 font-mono text-[40px] leading-[44px] font-medium tracking-[-0.4px]">
-                      ₹{p.priceInr}<span className="text-sm text-muted-foreground">/month</span>
-                    </div>
-                    <div className="mt-1 font-mono text-xs text-muted-foreground">{p.minutes} minutes every month</div>
-                    <ul className="mt-6 flex-1 space-y-2 text-sm">
-                      {p.features.slice(1).map((f) => (
-                        <li key={f} className="flex gap-2"><Check className="mt-0.5 size-4 shrink-0 text-primary" strokeWidth={1.5} /> {f}</li>
-                      ))}
-                    </ul>
-                    <Button variant={featured ? "default" : "secondary"} className="mt-8 h-10" asChild>
-                      <Link href="/signin">Start With {p.name}</Link>
-                    </Button>
-                  </div>
-                );
-              })}
             </div>
           </div>
         </section>
