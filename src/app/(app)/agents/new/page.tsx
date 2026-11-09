@@ -1,10 +1,8 @@
 "use client";
 
-import { useConvexMutation } from "@convex-dev/react-query";
-import { useMutation } from "@tanstack/react-query";
+import { useRpcMutation } from "@/lib/rpc";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { api } from "../../../../../convex/_generated/api";
 import { AgentForm, draftFromTemplate } from "@/components/agent-form";
 import { errorText, PageHeader } from "@/components/app-ui";
 import { Button } from "@/components/ui/button";
@@ -17,8 +15,7 @@ export default function NewAgentPage() {
   const router = useRouter();
   const { workspaceId } = useWorkspace();
   const [template, setTemplate] = useState<AgentTemplate | null>(null);
-  const create = useMutation({
-    mutationFn: useConvexMutation(api.agents.create),
+  const create = useRpcMutation("agents.create", {
     onSuccess: (id) => router.push(`/agents/${id}?call=1`),
   });
 

@@ -10,7 +10,6 @@ import { useFluidHover, useRegisterFluidHoverItem } from "@/hooks/use-fluid-hove
 const LINKS = [
   { href: "#use-cases", label: "Use Cases" },
   { href: "#how-it-works", label: "How It Works" },
-  { href: "#pricing", label: "Pricing" },
 ];
 
 function NavLink({

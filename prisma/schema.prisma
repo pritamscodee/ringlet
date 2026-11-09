@@ -1,0 +1,246 @@
+// Ringlet data model on Neon Postgres.
+//
+// The connection URL lives in prisma.config.ts (CLI) and src/server/db.ts
+// (runtime, through the Neon driver adapter), not here.
+
+generator client {
+  provider     = "prisma-client"
+  output       = "../src/generated/prisma"
+  moduleFormat = "esm"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+// ---------------------------------------------------------------------------
+// Auth (Better Auth). Field names follow Better Auth's core schema.
+// ---------------------------------------------------------------------------
+
+model User {
+  id            String       @id
+  name          String
+  email         String       @unique
+  emailVerified Boolean      @default(false)
+  image         String?
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  sessions      Session[]
+  accounts      Account[]
+  memberships   Membership[]
+  ownedSpaces   Workspace[]
+
+  @@map("user")
+}
+
+model Session {
+  id        String   @id
+  expiresAt DateTime
+  token     String   @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ipAddress String?
+  userAgent String?
+  userId    String
+  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@map("session")
+}
+
+model Account {
+  id                    String    @id
+  accountId             String
+  providerId            String
+  userId                String
+  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accessToken           String?
+  refreshToken          String?
+  idToken               String?
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+  scope                 String?
+  password              String?
+  createdAt             DateTime  @default(now())
+  updatedAt             DateTime  @updatedAt
+
+  @@index([userId])
+  @@map("account")
+}
+
+model Verification {
+  id         String   @id
+  identifier String
+  value      String
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  @@index([identifier])
+  @@map("verification")
+}
+
+// ---------------------------------------------------------------------------
+// Workspaces and team
+// ---------------------------------------------------------------------------
+
+enum Role {
+  owner
+  admin
+  member
+}
+
+model Workspace {
+  id            String         @id @default(uuid(7))
+  name          String
+  ownerId       String
+  owner         User           @relation(fields: [ownerId], references: [id])
+  /// Remaining talk time, in seconds.
+  creditSeconds Int
+  createdAt     DateTime       @default(now())
+  memberships   Membership[]
+  agents        Agent[]
+  conversations Conversation[]
+  captures      Capture[]
+
+  @@index([ownerId])
+  @@map("workspace")
+}
+
+model Membership {
+  id          String    @id @default(uuid(7))
+  workspaceId String
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  userId      String
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        Role
+  createdAt   DateTime  @default(now())
+
+  @@unique([userId, workspaceId])
+  @@index([workspaceId])
+  @@map("membership")
+}
+
+// ---------------------------------------------------------------------------
+// Agents and calls
+// ---------------------------------------------------------------------------
+
+enum AgentStatus {
+  draft
+  live
+  paused
+}
+
+model Agent {
+  id            String         @id @default(uuid(7))
+  workspaceId   String
+  workspace     Workspace      @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  name          String
+  useCase       String
+  personality   String
+  instructions  String
+  systemPrompt  String
+  greeting      String
+  voice         String
+  language      String
+  model         String
+  /// AgentBehavior (src/server/schemas.ts)
+  behavior      Json
+  builtinTools  String[]
+  /// CustomTool[] (src/server/schemas.ts)
+  customTools   Json
+  /// KnowledgeDoc[] (src/server/schemas.ts)
+  knowledge     Json
+  status        AgentStatus    @default(live)
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+  // Deleting an agent keeps its calls: they carry agentName.
+  conversations Conversation[]
+  captures      Capture[]
+
+  @@index([workspaceId, createdAt(sort: Desc)])
+  @@map("agent")
+}
+
+enum ConversationStatus {
+  active
+  completed
+  failed
+}
+
+model Conversation {
+  id               String             @id @default(uuid(7))
+  workspaceId      String
+  workspace        Workspace          @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  agentId          String?
+  agent            Agent?             @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  agentName        String
+  status           ConversationStatus @default(active)
+  startedAt        DateTime           @default(now())
+  endedAt          DateTime?
+  durationSec      Int?
+  endReason        String?
+  failureReason    String?
+  summary          String?
+  outcome          String?
+  recordingConsent Boolean
+  /// Object key in the recordings bucket.
+  recordingKey     String?
+  /// CallMetrics (src/server/schemas.ts)
+  metrics          Json?
+  inputTokens      Int                @default(0)
+  outputTokens     Int                @default(0)
+  ttsCharacters    Int                @default(0)
+  messages         Message[]
+  captures         Capture[]
+
+  @@index([workspaceId, startedAt(sort: Desc)])
+  @@index([agentId, startedAt(sort: Desc)])
+  @@index([status, startedAt])
+  @@map("conversation")
+}
+
+enum MessageRole {
+  user
+  agent
+  tool
+}
+
+model Message {
+  id             String       @id @default(uuid(7))
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  role           MessageRole
+  text           String
+  interrupted    Boolean?
+  toolName       String?
+  at             DateTime     @default(now())
+
+  @@index([conversationId, at])
+  @@map("message")
+}
+
+enum CaptureKind {
+  lead
+  appointment
+  message
+  handoff
+}
+
+/// Structured results captured by agent tools: leads, bookings, messages, handoffs.
+model Capture {
+  id             String       @id @default(uuid(7))
+  workspaceId    String
+  workspace      Workspace    @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  conversationId String
+  conversation   Conversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+  agentId        String?
+  agent          Agent?       @relation(fields: [agentId], references: [id], onDelete: SetNull)
+  kind           CaptureKind
+  data           Json
+  createdAt      DateTime     @default(now())
+
+  @@index([workspaceId, createdAt(sort: Desc)])
+  @@index([conversationId, kind])
+  @@map("capture")
+}
