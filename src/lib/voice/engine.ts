@@ -57,6 +57,7 @@ export type VoiceSessionOptions = {
   uploadRecording?: (conversationId: string, blob: Blob) => Promise<void>;
 };
 
+const cancelled = (why = "turn interrupted") => new DOMException(why, "AbortError");
 const uid = () => Math.random().toString(36).slice(2, 10);
 const avg = (xs: number[]) =>
   xs.length ? Math.round(xs.reduce((a, b) => a + b, 0) / xs.length) : undefined;
@@ -344,7 +345,7 @@ export class VoiceSession {
     this.m.interruptions++;
     this.player.stop();
     if (this.turn) {
-      this.turn.abort.abort();
+      this.turn.abort.abort(cancelled());
       const e = this.entries.find((x) => x.id === this.turn!.entryId);
       if (e && e.text) e.interrupted = true;
       this.turn = null;
@@ -382,7 +383,7 @@ export class VoiceSession {
 
   private async runTurn(userText: string) {
     if (this.turn) {
-      this.turn.abort.abort();
+      this.turn.abort.abort(cancelled());
       this.player.stop();
     }
     this.m.turns++;
@@ -454,15 +455,20 @@ export class VoiceSession {
     if (!/[\p{L}\p{N}]/u.test(text)) return;
     const requestedAt = Date.now();
     // Start synthesis now; play in order once earlier sentences are queued.
+    // Handle rejection right away: if the turn is cut off before the chain
+    // reaches this sentence, nobody else would observe the AbortError.
     const audio = fetch("/api/voice/tts", {
       method: "POST",
       headers: { "Content-Type": "application/json", "x-ringlet-ticket": this.cfg.ticket },
       body: JSON.stringify({ text }),
       signal: turn.abort.signal,
-    });
+    }).catch(() => null);
     turn.chain = turn.chain.then(async () => {
-      if (this.turn !== turn) return;
-      const res = await audio.catch(() => null);
+      if (this.turn !== turn) {
+        void audio.then((r) => r?.body?.cancel().catch(() => {}));
+        return;
+      }
+      const res = await audio;
       if (!res?.ok || !res.body) {
         if (!turn.abort.signal.aborted) this.opts.onError("Speech synthesis failed");
         return;
@@ -529,7 +535,7 @@ export class VoiceSession {
     if (this.ended) return;
     this.ended = true;
     this.timers.forEach((t) => clearTimeout(t as ReturnType<typeof setTimeout>));
-    this.turn?.abort.abort();
+    this.turn?.abort.abort(cancelled("call ended"));
     this.turn = null;
     this.player?.stop();
     try {
