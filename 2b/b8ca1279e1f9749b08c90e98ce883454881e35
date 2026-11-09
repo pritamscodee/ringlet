@@ -1,0 +1,24 @@
+src/server/db.ts
+  s_7b9d4f57ef6c16::t_b0dae4aceae9cd 5-7,9-11
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "2bb8ca1279e1f9749b08c90e98ce883454881e35",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_7b9d4f57ef6c16": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "47c47de6-aaa2-4818-8531-c316e7f5965e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
