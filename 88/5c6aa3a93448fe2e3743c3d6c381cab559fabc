@@ -1,0 +1,25 @@
+README.md
+  s_b41568da1a05d3::t_3ff1993eef1c95 3,5-7,9-24,26-56,60-90,92-117,119-189,191-211,214,218-231,233-234,236,238-240,242,244-247,249,251-253,255,257,259-268,270,272-281,283,285-286,290-293,296,298-300,302-304
+  s_b41568da1a05d3::t_1c6709d6634498 190
+---
+{
+  "schema_version": "authorship/3.0.0",
+  "git_ai_version": "1.7.5",
+  "base_commit_sha": "885c6aa3a93448fe2e3743c3d6c381cab559fabc",
+  "prompts": {},
+  "humans": {
+    "h_8dfeaef981cbe6": {
+      "author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  },
+  "sessions": {
+    "s_b41568da1a05d3": {
+      "agent_id": {
+        "tool": "claude",
+        "id": "efd9789f-4856-4d79-a917-a30097d1b67e",
+        "model": "claude-opus-5-5"
+      },
+      "human_author": "pritamscodee <codewithpritam29@gmail.com>"
+    }
+  }
+}
