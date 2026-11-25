@@ -1,76 +1,74 @@
 # Setup and operations
 
+The app uses one database: **Neon Postgres**, reached through Prisma 7. Convex
+was removed in commit `e3b816f`; there is no Convex backend in this repository.
+
 ## Setup
 
 ```bash
 bun install                 # also copies VAD/ONNX assets into public/vad
-bunx convex dev             # links a Convex deployment and writes .env.local
+cp .env.example .env.local  # then fill in the values below
+bunx prisma migrate deploy  # or: bun run db:deploy
+bun run dev
 ```
 
-Set Convex Auth keys once per deployment (`bunx @convex-dev/auth` does it, or set `SITE_URL`, `JWT_PRIVATE_KEY`, `JWKS` by hand).
+Fill `.env.local` with:
 
-Add to `.env.local` (see `.env.example`):
+| Variable | Purpose |
+| --- | --- |
+| `DATABASE_URL` | Neon pooled endpoint, used by the app at runtime |
+| `DIRECT_URL` | Same database, unpooled; used by Prisma migrations |
+| `BETTER_AUTH_SECRET`, `BETTER_AUTH_URL` | Email/password sessions |
+| `DEEPGRAM_API_KEY` | Speech-to-text and text-to-speech, including browser grant tokens |
+| `ANTHROPIC_API_KEY` | Agent turns via Mastra |
+| `RINGLET_SESSION_SECRET` | Signs short-lived per-call tickets |
+| `RECORDINGS_BUCKET` | Optional; enables call recording |
+| `NEXT_PUBLIC_DEMO_AGENT_ID` | Optional; makes the landing-page hero callable |
+| `NEXT_PUBLIC_SENTRY_DSN`, `SENTRY_*` | Optional observability |
 
-```
-DEEPGRAM_API_KEY=...
-ANTHROPIC_API_KEY=...
-RINGLET_SESSION_SECRET=<long random string>
-NEXT_PUBLIC_SENTRY_DSN=...   # optional
-```
-
-Then run `bun run dev` and open http://localhost:3000.
+`DIRECT_URL` must be the unpooled Neon host: migrations cannot run through the
+pooler. `prisma.config.ts` loads `.env.local` for the CLI, while
+`src/server/db.ts` uses `DATABASE_URL` through the Neon driver adapter.
 
 ## Production
 
-`bunx convex deploy` pushes code and schema to the production deployment. It
-does **not** copy data or environment variables from dev: a fresh production
-deployment starts empty and unconfigured.
-
-Point the production build at it with a `.env.production.local` (gitignored),
-which Next.js loads for `next build` and `next start` only, so `bun run dev`
-keeps using the dev deployment from `.env.local`:
-
-```
-NEXT_PUBLIC_CONVEX_URL=https://<deployment>.convex.cloud
-NEXT_PUBLIC_CONVEX_SITE_URL=https://<deployment>.convex.site
-```
-
-Then set the deployment's own environment. Auth keys should be generated
-fresh for production rather than copied from dev:
+Migrations are applied to Neon separately from the app deploy. Point
+`DATABASE_URL`/`DIRECT_URL` at the production database when running them, then
+deploy the Next.js app with SST:
 
 ```bash
-bunx @convex-dev/auth --prod
-bunx convex env set SITE_URL https://<your-frontend-origin> --prod
+bun run db:deploy
+bun run deploy           # sst deploy --stage production
 ```
 
-`SITE_URL` must match the deployed frontend's origin or sign-in fails, so it
-can only be set once the frontend has a URL.
+SST injects the runtime secrets; set them once with `bunx sst secret set` as
+listed at the top of `sst.config.ts`. `DatabaseUrl` is the pooled Neon URL.
+The production stage is protected and uses `removal: "retain"`.
 
-## Billing (Razorpay)
+## Talk time
 
-Customers subscribe monthly in INR through Razorpay Subscriptions (UPI Autopay, cards, netbanking e-mandate). Plans live in `src/lib/shared/plans.ts` (`INR_PLANS`); prices include GST.
+There is no payment provider. The first workspace a user creates gets a
+15-minute trial; every other workspace starts at zero. An operator tops up
+minutes with:
 
-| Plan | ₹/month | Minutes | Agents | Recordings | Webhook tools | Smart model | Knowledge |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| Starter | 599 | 100 | 2 | no | no | no | 50k chars |
-| Growth | 799 | 150 | 5 | yes | yes | no | 100k chars |
-| Pro | 999 | 200 | unlimited | yes | yes | yes, at 2× minutes | 200k chars |
+```bash
+bun run grant-minutes <workspace-id-or-email> <minutes>
+```
 
-- Each successful charge adds the month's minutes. Unused minutes roll over, but the balance after renewal is capped at 2× the plan.
-- Limits apply only while a Razorpay plan is active. Trial workspaces keep every feature.
-- After a downgrade, saved agents keep their settings. Webhook tools, recording and the Smart model are switched off on calls.
-- Razorpay plans are created automatically on first checkout (one per plan and price). Changing a price creates a new Razorpay plan; existing subscribers keep their old price.
-
-1. Set these on the **Convex** deployment: `RAZORPAY_KEY_ID`, `RAZORPAY_KEY_SECRET`, `RAZORPAY_WEBHOOK_SECRET`.
-2. Turn on Subscriptions in the Razorpay Dashboard.
-3. Add the webhook `https://<deployment>.convex.site/webhooks/razorpay` with the `subscription.*` events (at least `authenticated`, `activated`, `charged`, `pending`, `halted`, `cancelled`, `completed`).
+Calls end when the balance is exhausted, and settlement clamps the balance at
+zero.
 
 ## Scripts
 
 | | |
 | --- | --- |
-| `bun run dev` | Convex + Next.js |
-| `bun run test` | unit tests (webhook signatures, chunker, knowledge search, plan limits) |
-| `bun run typecheck` | app + Convex |
-| `bun run deploy:convex` | deploy Convex |
+| `bun run dev` | Next.js dev server |
+| `bun run build` | Prisma client generation + production build |
+| `bun run db:migrate` | Create/apply a migration in development |
+| `bun run db:deploy` | Apply migrations to the configured database |
+| `bun run db:studio` | Browse the database |
+| `bun run grant-minutes` | Add talk time to a workspace |
+| `bun run test` | Unit tests (sentence chunker, knowledge search) |
+| `bun run typecheck` | Client generation, Next typegen, `tsc --noEmit` |
+| `bun run lint` | ESLint |
 | `bun run deploy` | SST deploy to AWS (`sst secret set …` first, see `sst.config.ts`) |

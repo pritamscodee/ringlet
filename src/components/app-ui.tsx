@@ -97,14 +97,8 @@ const TONE: Record<string, string> = {
 const STATUS_TONE: Record<string, keyof typeof TONE> = {
   live: "good",
   completed: "good",
-  paid: "good",
-  activated: "good",
   active: "live",
-  awaiting_payment: "warn",
-  verifying: "warn",
-  input_required: "warn",
   failed: "bad",
-  hold: "bad",
 };
 
 export function StatusBadge({ status }: { status: string }) {
