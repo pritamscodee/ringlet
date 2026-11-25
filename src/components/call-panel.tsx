@@ -1,12 +1,11 @@
 "use client";
 
-import { useConvexMutation } from "@convex-dev/react-query";
 import * as Sentry from "@sentry/nextjs";
 import { Mic, MicOff, Phone, PhoneOff } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
-import { api } from "../../convex/_generated/api";
-import type { Doc, Id } from "../../convex/_generated/dataModel";
+import { rpc } from "@/lib/rpc";
+import type { AgentDto } from "@/server/services/agents";
 import { VoiceSession, type CallState, type TranscriptEntry } from "@/lib/voice/engine";
 import { ErrorNote } from "./app-ui";
 import { Button } from "./ui/button";
@@ -23,7 +22,7 @@ const STATE_LABEL: Record<CallState, string> = {
   ended: "Call ended",
 };
 
-export function CallPanel({ agent }: { agent: Doc<"agents"> }) {
+export function CallPanel({ agent }: { agent: AgentDto }) {
   const [state, setState] = useState<CallState | null>(null);
   const [entries, setEntries] = useState<TranscriptEntry[]>([]);
   const [error, setError] = useState<string | null>(null);
@@ -33,9 +32,6 @@ export function CallPanel({ agent }: { agent: Doc<"agents"> }) {
   const [lastCall, setLastCall] = useState<string | null>(null);
   const session = useRef<VoiceSession | null>(null);
   const scroller = useRef<HTMLDivElement>(null);
-
-  const getUploadUrl = useConvexMutation(api.conversations.generateRecordingUploadUrl);
-  const attachRecording = useConvexMutation(api.conversations.attachRecording);
 
   const live = state !== null && state !== "ended";
 
@@ -60,7 +56,7 @@ export function CallPanel({ agent }: { agent: Doc<"agents"> }) {
     setMuted(false);
     setLastCall(null);
     const s = new VoiceSession({
-      agentId: agent._id,
+      agentId: agent.id,
       recordingConsent: consent,
       onState: setState,
       onTranscript: setEntries,
@@ -70,11 +66,12 @@ export function CallPanel({ agent }: { agent: Doc<"agents"> }) {
       },
       onEnded: ({ conversationId }) => setLastCall(conversationId),
       uploadRecording: async (conversationId, blob) => {
-        const id = conversationId as Id<"conversations">;
-        const url = await getUploadUrl({ conversationId: id });
-        const res = await fetch(url, { method: "POST", headers: { "Content-Type": blob.type }, body: blob });
-        const { storageId } = await res.json();
-        await attachRecording({ conversationId: id, storageId });
+        // Straight to the recordings bucket; the audio never passes through our server.
+        const contentType = blob.type || "audio/webm";
+        const url = await rpc("conversations.recordingUploadUrl", { conversationId, contentType });
+        const res = await fetch(url, { method: "PUT", headers: { "Content-Type": contentType }, body: blob });
+        if (!res.ok) throw new Error(`Recording upload failed (${res.status})`);
+        await rpc("conversations.attachRecording", { conversationId });
       },
     });
     session.current = s;

@@ -1,9 +1,9 @@
 "use client";
 
-import { useAuthActions } from "@convex-dev/auth/react";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Bot,
-  CreditCard,
+  Gauge,
   Inbox,
   LayoutDashboard,
   LogOut,
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { NativeSelect, NativeSelectOption } from "@/components/ui/native-select";
 import { Separator } from "@/components/ui/separator";
 import { WorkspaceProvider, useWorkspace } from "@/components/workspace";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 
 const NAV = [
@@ -28,7 +29,7 @@ const NAV = [
   { href: "/agents", label: "Agents", icon: Bot },
   { href: "/conversations", label: "Conversations", icon: MessagesSquare },
   { href: "/captures", label: "Leads & Bookings", icon: Inbox },
-  { href: "/usage", label: "Usage & Billing", icon: CreditCard },
+  { href: "/usage", label: "Usage", icon: Gauge },
   { href: "/settings", label: "Settings", icon: Settings },
 ];
 
@@ -66,7 +67,7 @@ function Sidebar() {
   const hover = useFluidHover(navRef, { axis: "y" });
   const pathname = usePathname();
   const router = useRouter();
-  const { signOut } = useAuthActions();
+  const queryClient = useQueryClient();
   const { workspace, workspaces, switchTo } = useWorkspace();
   const low = workspace.creditSeconds < 5 * 60;
 
@@ -76,11 +77,11 @@ function Sidebar() {
       {workspaces.length > 1 ? (
         <NativeSelect
           className="mb-4 w-full"
-          value={workspace._id}
-          onChange={(e) => switchTo(e.target.value as typeof workspace._id)}
+          value={workspace.id}
+          onChange={(e) => switchTo(e.target.value)}
         >
           {workspaces.map((w) => (
-            <NativeSelectOption key={w._id} value={w._id}>{w.name}</NativeSelectOption>
+            <NativeSelectOption key={w.id} value={w.id}>{w.name}</NativeSelectOption>
           ))}
         </NativeSelect>
       ) : (
@@ -106,13 +107,18 @@ function Sidebar() {
         )}
       >
         <div className="font-mono font-medium">{formatMinutes(workspace.creditSeconds)} left</div>
-        {low && <div>Top up to keep agents answering</div>}
+        {low && <div>Running low: ask a workspace owner for more minutes</div>}
       </Link>
       <Separator className="mb-2" />
       <Button
         variant="ghost"
         className="justify-start text-muted-foreground"
-        onClick={() => void signOut().then(() => router.push("/signin"))}
+        onClick={() =>
+          void authClient.signOut().then(() => {
+            queryClient.clear();
+            router.push("/signin");
+          })
+        }
       >
         <LogOut /> Sign Out
       </Button>

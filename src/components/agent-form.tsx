@@ -2,7 +2,6 @@
 
 import { Plus, Trash2, Upload } from "lucide-react";
 import { useState } from "react";
-import type { Doc } from "../../convex/_generated/dataModel";
 import {
   BUILTIN_TOOLS,
   DEFAULT_BEHAVIOR,
@@ -13,6 +12,8 @@ import {
   type AgentTemplate,
 } from "@/lib/shared/templates";
 import { cn } from "@/lib/utils";
+import type { AgentFields } from "@/server/schemas";
+import type { AgentDto } from "@/server/services/agents";
 import { ErrorNote } from "./app-ui";
 import { Button } from "./ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
@@ -23,7 +24,7 @@ import { NativeSelect, NativeSelectOption } from "./ui/native-select";
 import { Separator } from "./ui/separator";
 import { Textarea } from "./ui/textarea";
 
-export type AgentDraft = Omit<Doc<"agents">, "_id" | "_creationTime" | "workspaceId" | "status" | "updatedAt">;
+export type AgentDraft = AgentFields;
 
 export function draftFromTemplate(t: AgentTemplate): AgentDraft {
   return {
@@ -43,9 +44,9 @@ export function draftFromTemplate(t: AgentTemplate): AgentDraft {
   };
 }
 
-export function draftFromAgent(a: Doc<"agents">): AgentDraft {
-  const { _id, _creationTime, workspaceId, status, updatedAt, ...rest } = a;
-  void _id; void _creationTime; void workspaceId; void status; void updatedAt;
+export function draftFromAgent(a: AgentDto): AgentDraft {
+  const { id, workspaceId, status, createdAt, updatedAt, ...rest } = a;
+  void id; void workspaceId; void status; void createdAt; void updatedAt;
   return rest;
 }
 

@@ -1,10 +1,8 @@
 "use client";
 
-import { useConvexMutation } from "@convex-dev/react-query";
-import { useMutation } from "@tanstack/react-query";
+import { useRpcMutation } from "@/lib/rpc";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { api } from "../../../convex/_generated/api";
 import { ErrorNote, errorText } from "@/components/app-ui";
 import { Logo } from "@/components/logo";
 import { Button } from "@/components/ui/button";
@@ -16,8 +14,7 @@ import { rememberWorkspace } from "@/components/workspace";
 export default function OnboardingPage() {
   const router = useRouter();
   const [name, setName] = useState("");
-  const create = useMutation({
-    mutationFn: useConvexMutation(api.workspaces.create),
+  const create = useRpcMutation("workspaces.create", {
     onSuccess: (id) => {
       rememberWorkspace(id as string);
       router.push("/agents/new");
@@ -32,7 +29,7 @@ export default function OnboardingPage() {
           <CardHeader>
             <CardTitle>Create Your Workspace</CardTitle>
             <CardDescription>
-              A workspace holds your agents, calls and billing. It starts with 15 free minutes.
+              A workspace holds your agents, calls and talk time. It starts with 15 free minutes.
             </CardDescription>
           </CardHeader>
           <CardContent>

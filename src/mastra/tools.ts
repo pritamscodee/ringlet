@@ -1,23 +1,24 @@
 import "server-only";
 import { createTool } from "@mastra/core/tools";
 import { z } from "zod";
-import { api } from "../../convex/_generated/api";
-import type { Doc, Id } from "../../convex/_generated/dataModel";
-import type { ConvexAs } from "@/lib/server/convex";
+import type { CaptureKind } from "@/server/schemas";
+import type { AgentDto } from "@/server/services/agents";
+import { addCapture } from "@/server/services/conversations";
 import { searchKnowledge } from "./knowledge";
 
 type ToolDeps = {
-  convex: ConvexAs;
-  conversationId: Id<"conversations">;
-  agent: Doc<"agents">;
+  /** The signed-in user the call runs as; every write is checked against it. */
+  userId: string;
+  conversationId: string;
+  agent: AgentDto;
 };
 
 /** Tool names whose results the browser acts on (hang up, hand off). */
 export const CONTROL_TOOLS = new Set(["end_call", "transfer_to_human"]);
 
-function builtinTools({ convex, conversationId, agent }: ToolDeps) {
-  const capture = (kind: "lead" | "appointment" | "message" | "handoff", data: Record<string, unknown>) =>
-    convex.mutation(api.conversations.addCapture, { conversationId, kind, data });
+function builtinTools({ userId, conversationId, agent }: ToolDeps) {
+  const capture = (kind: CaptureKind, data: Record<string, unknown>) =>
+    addCapture(userId, { conversationId, kind, data });
 
   return {
     capture_lead: createTool({
@@ -114,7 +115,7 @@ function builtinTools({ convex, conversationId, agent }: ToolDeps) {
 const PRIVATE_HOST =
   /^(localhost|127\.|10\.|192\.168\.|169\.254\.|172\.(1[6-9]|2\d|3[01])\.|0\.|\[?::1\]?$|\[?f[cd][0-9a-f]{2}:)/i;
 
-function customTools(agent: Doc<"agents">) {
+function customTools(agent: AgentDto) {
   const tools: Record<string, ReturnType<typeof createTool>> = {};
   for (const t of agent.customTools) {
     tools[t.name] = createTool({

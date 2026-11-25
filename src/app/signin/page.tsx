@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuthActions } from "@convex-dev/auth/react";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 import { ErrorNote } from "@/components/app-ui";
@@ -9,9 +8,9 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { authClient } from "@/lib/auth-client";
 
 export default function SignInPage() {
-  const { signIn } = useAuthActions();
   const router = useRouter();
   const [flow, setFlow] = useState<"signIn" | "signUp">("signIn");
   const [error, setError] = useState<string | null>(null);
@@ -22,19 +21,22 @@ export default function SignInPage() {
     setError(null);
     setBusy(true);
     const form = new FormData(e.currentTarget);
-    form.set("flow", flow);
-    try {
-      await signIn("password", form);
-      router.push(flow === "signUp" ? "/onboarding" : "/dashboard");
-    } catch {
+    const email = String(form.get("email") ?? "").trim().toLowerCase();
+    const password = String(form.get("password") ?? "");
+    const { error } =
+      flow === "signIn"
+        ? await authClient.signIn.email({ email, password })
+        : await authClient.signUp.email({ email, password, name: email.split("@")[0] });
+    setBusy(false);
+    if (error) {
       setError(
         flow === "signIn"
           ? "Wrong email or password. Check both and try again."
           : "Account not created. Use at least 8 characters, or sign in if the email is already registered.",
       );
-    } finally {
-      setBusy(false);
+      return;
     }
+    router.push(flow === "signUp" ? "/onboarding" : "/dashboard");
   }
 
   return (

@@ -1,10 +1,8 @@
 "use client";
 
-import { convexQuery, useConvexMutation } from "@convex-dev/react-query";
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { rpcQuery, useRpcMutation } from "@/lib/rpc";
+import { useQuery } from "@tanstack/react-query";
 import { useState } from "react";
-import { api } from "../../../../convex/_generated/api";
-import type { Id } from "../../../../convex/_generated/dataModel";
 import { ErrorNote, errorText, PageHeader } from "@/components/app-ui";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -20,12 +18,12 @@ export default function SettingsPage() {
   const [newWorkspace, setNewWorkspace] = useState("");
   const [email, setEmail] = useState("");
   const [role, setRole] = useState<"admin" | "member">("member");
-  const { data: members } = useQuery(convexQuery(api.workspaces.members, { workspaceId }));
+  const { data: members } = useQuery(rpcQuery("workspaces.members", { workspaceId }));
 
-  const rename = useMutation({ mutationFn: useConvexMutation(api.workspaces.rename) });
-  const add = useMutation({ mutationFn: useConvexMutation(api.workspaces.addMember), onSuccess: () => setEmail("") });
-  const remove = useMutation({ mutationFn: useConvexMutation(api.workspaces.removeMember) });
-  const createWs = useMutation({ mutationFn: useConvexMutation(api.workspaces.create), onSuccess: () => setNewWorkspace("") });
+  const rename = useRpcMutation("workspaces.rename");
+  const add = useRpcMutation("workspaces.addMember", { onSuccess: () => setEmail("") });
+  const remove = useRpcMutation("workspaces.removeMember");
+  const createWs = useRpcMutation("workspaces.create", { onSuccess: () => setNewWorkspace("") });
 
   return (
     <>
@@ -58,12 +56,12 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>Team</CardTitle>
-            <CardDescription>Admins can build agents and manage billing. Members can view calls and run test calls.</CardDescription>
+            <CardDescription>Admins can build agents and manage the team. Members can view calls and run test calls.</CardDescription>
           </CardHeader>
           <CardContent className="space-y-4">
             <ul className="divide-y text-sm">
               {members?.map((m) => (
-                <li key={m._id} className="flex items-center justify-between py-2">
+                <li key={m.id} className="flex items-center justify-between py-2">
                   <span>{m.email}</span>
                   <span className="flex items-center gap-3">
                     <Badge variant="outline" className="capitalize">{m.role}</Badge>
@@ -72,7 +70,7 @@ export default function SettingsPage() {
                         variant="ghost"
                         size="sm"
                         className="text-destructive"
-                        onClick={() => remove.mutate({ workspaceId, membershipId: m._id as Id<"memberships"> })}
+                        onClick={() => remove.mutate({ workspaceId, membershipId: m.id })}
                       >
                         Remove Member
                       </Button>
@@ -104,7 +102,7 @@ export default function SettingsPage() {
         <Card>
           <CardHeader>
             <CardTitle>New Workspace</CardTitle>
-            <CardDescription>Separate agents, calls and billing, for example per client or brand.</CardDescription>
+            <CardDescription>Separate agents, calls and talk time, for example per client or brand.</CardDescription>
           </CardHeader>
           <CardContent>
             <form

@@ -1,36 +1,28 @@
 import * as Sentry from "@sentry/nextjs";
 import { z } from "zod";
-import { api } from "../../../../../convex/_generated/api";
-import type { Id } from "../../../../../convex/_generated/dataModel";
-import { convexAs, errorMessage } from "@/lib/server/convex";
 import { summarizer } from "@/mastra";
+import { currentUserId } from "@/server/auth";
+import { errorMessage } from "@/server/errors";
+import { callMetrics } from "@/server/schemas";
+import * as conversations from "@/server/services/conversations";
 
-const num = z.number().nonnegative().optional();
 const Body = z.object({
-  conversationId: z.string(),
+  conversationId: z.string().min(1).max(64),
   endReason: z.string().max(200),
   failed: z.string().max(1000).optional(),
-  metrics: z.object({
-    turns: z.number().int().nonnegative(),
-    interruptions: z.number().int().nonnegative(),
-    sttLatencyMs: num,
-    llmFirstTokenMs: num,
-    ttsFirstByteMs: num,
-    responseLatencyMs: num,
-  }),
+  metrics: callMetrics,
 });
 
 /** Ends a call, bills its duration and writes the summary. */
 export async function POST(req: Request) {
-  const convex = await convexAs();
-  if (!convex) return Response.json({ error: "Not signed in" }, { status: 401 });
+  const userId = await currentUserId();
+  if (!userId) return Response.json({ error: "Not signed in" }, { status: 401 });
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return Response.json({ error: "Invalid request" }, { status: 400 });
-  const { conversationId: id, endReason, failed, metrics } = parsed.data;
-  const conversationId = id as Id<"conversations">;
+  const { conversationId, endReason, failed, metrics } = parsed.data;
 
   try {
-    const durationSec = await convex.mutation(api.conversations.finish, {
+    const durationSec = await conversations.finish(userId, {
       conversationId,
       endReason,
       failed,
@@ -50,7 +42,7 @@ export async function POST(req: Request) {
       });
     }
 
-    const { messages, captures } = await convex.query(api.conversations.get, { conversationId });
+    const { messages, captures } = await conversations.get(userId, { conversationId });
     const savedKinds = new Set<string>(captures.map((c) => c.kind));
     const spoken = messages.filter((m) => m.role !== "tool");
     if (spoken.some((m) => m.role === "user")) {
@@ -105,7 +97,7 @@ export async function POST(req: Request) {
         let outcome: string = result.object.outcome;
         let draftSaved = false;
         if (unsavedBooking && !savedKinds.has("appointment")) {
-          await convex.mutation(api.conversations.addDraftAppointment, {
+          await conversations.addDraftAppointment(userId, {
             conversationId,
             data: unsavedBooking,
           });
@@ -122,7 +114,7 @@ export async function POST(req: Request) {
         if (required && !savedKinds.has(required) && !(required === "appointment" && draftSaved)) {
           outcome = "other";
         }
-        await convex.mutation(api.conversations.setSummary, {
+        await conversations.setSummary(userId, {
           conversationId,
           summary: draftSaved
             ? `${summary} (Booking saved as a draft: the call ended before it was saved.)`
@@ -131,7 +123,7 @@ export async function POST(req: Request) {
         });
       }
     } else {
-      await convex.mutation(api.conversations.setSummary, {
+      await conversations.setSummary(userId, {
         conversationId,
         summary: "The caller did not speak.",
         outcome: "no_answer",

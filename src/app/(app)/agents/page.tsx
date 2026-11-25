@@ -1,10 +1,9 @@
 "use client";
 
-import { convexQuery } from "@convex-dev/react-query";
+import { rpcQuery } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 import { Bot, Phone, Plus } from "lucide-react";
 import Link from "next/link";
-import { api } from "../../../../convex/_generated/api";
 import { Empty, PageHeader, StatusBadge, timeAgo } from "@/components/app-ui";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
@@ -14,7 +13,7 @@ import { TEMPLATES, VOICES } from "@/lib/shared/templates";
 
 export default function AgentsPage() {
   const { workspaceId, canManage } = useWorkspace();
-  const { data: agents } = useQuery(convexQuery(api.agents.list, { workspaceId }));
+  const { data: agents } = useQuery(rpcQuery("agents.list", { workspaceId }));
 
   return (
     <>
@@ -40,10 +39,10 @@ export default function AgentsPage() {
             const template = TEMPLATES.find((t) => t.id === a.useCase);
             const voice = VOICES.find((v) => v.id === a.voice)?.label.split(" (")[0] ?? a.voice;
             return (
-              <Card key={a._id}>
+              <Card key={a.id}>
                 <CardHeader className="flex flex-row items-start justify-between gap-2">
                   <div>
-                    <CardTitle><Link href={`/agents/${a._id}`} className="hover:underline">{a.name}</Link></CardTitle>
+                    <CardTitle><Link href={`/agents/${a.id}`} className="hover:underline">{a.name}</Link></CardTitle>
                     <CardDescription>{template?.category ?? "Custom"} · {voice}</CardDescription>
                   </div>
                   <StatusBadge status={a.status} />
@@ -54,7 +53,7 @@ export default function AgentsPage() {
                 <CardFooter className="flex items-center justify-between text-xs text-muted-foreground">
                   <span>{a.callCount} calls · last {timeAgo(a.lastCallAt)}</span>
                   <Button variant="outline" size="sm" asChild>
-                    <Link href={`/agents/${a._id}?call=1`}><Phone /> Test Call</Link>
+                    <Link href={`/agents/${a.id}?call=1`}><Phone /> Test Call</Link>
                   </Button>
                 </CardFooter>
               </Card>

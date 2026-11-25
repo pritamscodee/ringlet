@@ -1,11 +1,10 @@
 "use client";
 
-import { convexQuery } from "@convex-dev/react-query";
+import { rpcQuery } from "@/lib/rpc";
 import { useQuery } from "@tanstack/react-query";
 import { Download, Inbox } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
-import { api } from "../../../../convex/_generated/api";
 import { Empty, PageHeader, timeAgo } from "@/components/app-ui";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -22,19 +21,19 @@ const KINDS = [
   { id: "handoff", label: "Handoffs" },
 ];
 
-function toCsv(rows: { kind: string; _creationTime: number; data: Record<string, unknown> }[]) {
+function toCsv(rows: { kind: string; createdAt: number; data: Record<string, unknown> }[]) {
   const keys = [...new Set(rows.flatMap((r) => Object.keys(r.data)))];
   const esc = (v: unknown) => `"${String(v ?? "").replace(/"/g, '""')}"`;
   return [
     ["kind", "created", ...keys].map(esc).join(","),
-    ...rows.map((r) => [r.kind, new Date(r._creationTime).toISOString(), ...keys.map((k) => r.data[k])].map(esc).join(",")),
+    ...rows.map((r) => [r.kind, new Date(r.createdAt).toISOString(), ...keys.map((k) => r.data[k])].map(esc).join(",")),
   ].join("\n");
 }
 
 export default function CapturesPage() {
   const { workspaceId } = useWorkspace();
   const [kind, setKind] = useState("all");
-  const { data } = useQuery(convexQuery(api.conversations.captures, { workspaceId }));
+  const { data } = useQuery(rpcQuery("conversations.captures", { workspaceId }));
   const rows = data?.filter((r) => kind === "all" || r.kind === kind);
 
   return (
@@ -74,11 +73,11 @@ export default function CapturesPage() {
       ) : (
         <div className="grid gap-3 md:grid-cols-2">
           {rows.map((r) => (
-            <Card key={r._id}>
+            <Card key={r.id}>
               <CardHeader className="flex flex-row items-center justify-between">
                 <Badge variant="outline" className="capitalize">{r.kind}</Badge>
                 <Link href={`/conversations/${r.conversationId}`} className="text-xs text-primary hover:underline">
-                  {timeAgo(r._creationTime)} · View call
+                  {timeAgo(r.createdAt)} · View call
                 </Link>
               </CardHeader>
               <CardContent>

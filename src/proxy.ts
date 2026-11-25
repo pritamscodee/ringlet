@@ -1,21 +1,25 @@
-import {
-  convexAuthNextjsMiddleware,
-  createRouteMatcher,
-  nextjsMiddlewareRedirect,
-} from "@convex-dev/auth/nextjs/server";
+import { getSessionCookie } from "better-auth/cookies";
+import { NextResponse, type NextRequest } from "next/server";
 
-const isSignIn = createRouteMatcher(["/signin"]);
-const isPublic = createRouteMatcher(["/", "/signin", "/monitoring(.*)"]);
+const PUBLIC = [/^\/$/, /^\/signin$/, /^\/monitoring(\/.*)?$/, /^\/api(\/.*)?$/];
 
-export const proxy = convexAuthNextjsMiddleware(async (request, { convexAuth }) => {
-  const authed = await convexAuth.isAuthenticated();
-  if (isSignIn(request) && authed) return nextjsMiddlewareRedirect(request, "/dashboard");
-  if (!isPublic(request) && !request.nextUrl.pathname.startsWith("/api") && !authed) {
-    return nextjsMiddlewareRedirect(request, "/signin");
+/**
+ * Optimistic redirects based on the session cookie only (no database call).
+ * Every page's data and every API route re-checks the real session on the server.
+ */
+export function proxy(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+  const hasSession = !!getSessionCookie(request);
+  if (pathname === "/signin" && hasSession) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
-});
+  if (!hasSession && !PUBLIC.some((r) => r.test(pathname))) {
+    return NextResponse.redirect(new URL("/signin", request.url));
+  }
+  return NextResponse.next();
+}
 
 export const config = {
   // Everything except static files and Next internals.
-  matcher: ["/((?!.*\\..*|_next).*)", "/", "/(api|trpc)(.*)"],
+  matcher: ["/((?!_next/static|_next/image|.*\\.[a-zA-Z0-9]+$).*)"],
 };

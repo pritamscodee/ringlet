@@ -97,14 +97,8 @@ const TONE: Record<string, string> = {
 const STATUS_TONE: Record<string, keyof typeof TONE> = {
   live: "good",
   completed: "good",
-  paid: "good",
-  activated: "good",
   active: "live",
-  awaiting_payment: "warn",
-  verifying: "warn",
-  input_required: "warn",
   failed: "bad",
-  hold: "bad",
 };
 
 export function StatusBadge({ status }: { status: string }) {
@@ -156,12 +150,7 @@ export function ms(v?: number | null) {
 }
 
 export function errorText(e: unknown) {
-  if (e && typeof e === "object" && "data" in e && typeof (e as { data: unknown }).data === "string") {
-    return (e as { data: string }).data;
-  }
-  return e instanceof Error
-    ? e.message.replace(/^\[CONVEX[^\]]*\]\s*/, "").replace(/Uncaught ConvexError:\s*/, "").split("\n")[0]
-    : "Something went wrong";
+  return e instanceof Error ? e.message.split("\n")[0] : "Something went wrong";
 }
 
 /** A label/value row used in detail cards. */

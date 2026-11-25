@@ -1,7 +1,6 @@
 import "server-only";
 import { Agent } from "@mastra/core/agent";
-import type { Doc, Id } from "../../convex/_generated/dataModel";
-import type { ConvexAs } from "@/lib/server/convex";
+import type { AgentDto } from "@/server/services/agents";
 import { BASE_SYSTEM_PROMPT } from "@/lib/shared/templates";
 import { inlineKnowledge, INLINE_KNOWLEDGE_LIMIT, knowledgeSize } from "./knowledge";
 import { toolsFor } from "./tools";
@@ -17,7 +16,7 @@ const LANGUAGE_NAMES: Record<string, string> = {
   pt: "Portuguese",
 };
 
-export function buildInstructions(agent: Doc<"agents">) {
+export function buildInstructions(agent: AgentDto) {
   const parts = [
     BASE_SYSTEM_PROMPT,
     `Your name is ${agent.name}.`,
@@ -51,15 +50,15 @@ export function buildInstructions(agent: Doc<"agents">) {
 
 /**
  * Builds the Mastra agent for one conversation, with tools bound to it.
- * Conversation history is stored in Convex and passed in per turn, so no
+ * Conversation history is stored in Postgres and passed in per turn, so no
  * Mastra storage or memory is configured.
  */
 export function voiceAgentFor(
-  agent: Doc<"agents">,
-  deps: { convex: ConvexAs; conversationId: Id<"conversations"> },
+  agent: AgentDto,
+  deps: { userId: string; conversationId: string },
 ) {
   return new Agent({
-    id: `ringlet-${agent._id}`,
+    id: `ringlet-${agent.id}`,
     name: agent.name,
     instructions: buildInstructions(agent),
     model: agent.model || DEFAULT_MODEL,
